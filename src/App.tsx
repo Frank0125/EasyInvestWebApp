@@ -2,9 +2,23 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { createOrder } from './lib/createOrder'
+import { useUser } from './components/UserProvider'
+import { StockType } from './types/StockType'
 
 function App() {
   const [count, setCount] = useState(0)
+  const user = useUser()
+  const sampleOrder = {
+    id: "new",
+    userID: user.id,
+    stockName: "apple",
+    amount: 100,
+    expectedGrowth: 100,
+    stockType: StockType.REGULAR,
+    openedAt: new Date,
+    closedAt: new Date,
+  }
 
   return (
     <>
@@ -20,6 +34,9 @@ function App() {
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
+        </button>
+        <button onClick={() => createOrder(sampleOrder)}>
+          Create Order
         </button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
